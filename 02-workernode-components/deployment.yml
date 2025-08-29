@@ -9,7 +9,7 @@ spec:
       app: webapp
   template:
     metadata:
-      name: myapp-pod
+      name: myapp-pod  
       labels:
         app: webapp
         type: front-end # Atleast 1 Pod label should match with ReplicaSet Label Selector   
