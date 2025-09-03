@@ -333,12 +333,18 @@ kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given p
 
 # Copying files and directories to and from containers
 kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # Copy /tmp/foo_dir local directory to /tmp/bar_dir in a remote pod in the current namespace
+
 kubectl cp /tmp/foo my-pod:/tmp/bar -c my-container    # Copy /tmp/foo local file to /tmp/bar in a remote pod in a specific container
+
 kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace my-namespace
+
 kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # Copy /tmp/foo from a remote pod to /tmp/bar locally
+''''
 Note:
-kubectl cp requires that the 'tar' binary is present in your container image. If 'tar' is not present, kubectl cp will fail. For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using kubectl exec.
+kubectl cp requires that the 'tar' binary is present in your container image. If 'tar' is not present, kubectl cp will fail. For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using kubectl exec.'''
+
 tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar           # Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace my-namespace
+
 kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar    # Copy /tmp/foo from a remote pod to /tmp/bar locally
 
 ===========================================###=====================####===========================####============================
@@ -357,12 +363,19 @@ kubectl exec deploy/my-deployment -- ls                   # run command in first
 
 # Interacting with Nodes and cluster
 kubectl cordon my-node                                                # Mark my-node as unschedulable
+
 kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
+
 kubectl uncordon my-node                                              # Mark my-node as schedulable
+
 kubectl top node                                                      # Show metrics for all nodes
+
 kubectl top node my-node                                              # Show metrics for a given node
+
 kubectl cluster-info                                                  # Display addresses of the master and services
+
 kubectl cluster-info dump                                             # Dump current cluster state to stdout
+
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
 
 # View existing taints on which exist on current nodes.
