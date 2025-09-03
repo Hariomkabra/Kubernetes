@@ -18,7 +18,7 @@ echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fis
 A note on --all-namespaces
 Appending --all-namespaces happens frequently enough that you should be aware of the shorthand for --all-namespaces: kubectl -A
 '''
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 
 # Kubectl context and configuration
@@ -72,7 +72,7 @@ kubectl config unset users.foo                       # delete user foo
 alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
 alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 
 # Creating objects
@@ -138,7 +138,7 @@ data:
   username: $(echo -n "jane" | base64 -w0)
 EOF
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Viewing and finding resources
 
@@ -240,7 +240,7 @@ for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo 
 # Get a deployment's status subresource
 kubectl get deployment nginx-deployment --subresource=status
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Updating resources
 
@@ -281,7 +281,7 @@ kubectl annotate pods my-pod icon-url-                           # Remove annota
 
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 
 # Patching resources
@@ -303,7 +303,7 @@ kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", 
 # Update a deployment's replica count by patching its scale subresource
 kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Editing resources
 Edit any API resource in your preferred editor.
@@ -311,7 +311,9 @@ Edit any API resource in your preferred editor.
 kubectl edit svc/docker-registry                      # Edit the service named docker-registry
 
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative editor
-===========================================###=====================####===========================####============================
+
+======================================####=============================######================
+
 # Scaling resources
 kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
 
@@ -321,7 +323,7 @@ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deplo
 
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Deleting resources
 kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
@@ -336,7 +338,7 @@ kubectl -n my-ns delete pod,svc --all                             # Delete all p
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 
 # Interacting with running Pods
@@ -385,7 +387,7 @@ kubectl top pod POD_NAME --containers               # Show metrics for a given p
 
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Copying files and directories to and from containers
 kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # Copy /tmp/foo_dir local directory to /tmp/bar_dir in a remote pod in the current namespace
@@ -403,7 +405,7 @@ tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/b
 
 kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar    # Copy /tmp/foo from a remote pod to /tmp/bar locally
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Interacting with Deployments and Services
 kubectl logs deploy/my-deployment                         # dump Pod logs for a Deployment (single-container case)
@@ -418,7 +420,7 @@ kubectl port-forward deploy/my-deployment 5000:6000       # listen on local port
 
 kubectl exec deploy/my-deployment -- ls                   # run command in first Pod and first container in Deployment (single- or multi-container cases)
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Interacting with Nodes and cluster
 kubectl cordon my-node                                                # Mark my-node as unschedulable
@@ -443,7 +445,7 @@ kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.tain
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 
-===========================================###=====================####===========================####============================
+======================================####=============================######================
 
 # Resource types
 List all supported resource types along with their shortnames, API group, whether they are namespaced, and kind:
@@ -463,7 +465,7 @@ kubectl api-resources --verbs=list,get       # All resources that support the "l
 
 kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
 
-======================================####=============================######===================================
+======================================####=============================######================
 
 
 # Here is the full list of kubectl short names:
