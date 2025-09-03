@@ -40,10 +40,15 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 kubectl config view --raw -o jsonpath='{.users[?(.name == "e2e")].user.client-certificate-data}' | base64 -d
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
+
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
+
 kubectl config get-contexts                          # display list of contexts
+
 kubectl config get-contexts -o name                  # get all context names
+
 kubectl config current-context                       # display the current-context
+
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 kubectl config set-cluster my-cluster-name           # set a cluster entry in the kubeconfig
@@ -77,9 +82,13 @@ Kubernetes manifests can be defined in YAML or JSON. The file extension .yaml, .
 '''
 
 kubectl apply -f ./my-manifest.yaml                 # create resource(s)
+
 kubectl apply -f ./my1.yaml -f ./my2.yaml           # create from multiple files
+
 kubectl apply -f ./dir                              # create resource(s) in all manifest files in dir
+
 kubectl apply -f https://example.com/manifest.yaml  # create resource(s) from url (Note: this is an example domain and does not contain a valid manifest)
+
 kubectl create deployment nginx --image=nginx       # start a single instance of nginx
 
 # create a Job which prints "Hello World"
@@ -136,14 +145,21 @@ EOF
 
 # Get commands with basic output
 kubectl get services                          # List all services in the namespace
+
 kubectl get pods --all-namespaces             # List all pods in all namespaces
+
 kubectl get pods -o wide                      # List all pods in the current namespace, with more details
+
 kubectl get deployment my-dep                 # List a particular deployment
+
 kubectl get pods                              # List all pods in the namespace
+
 kubectl get pod my-pod -o yaml                # Get a pod's YAML
 
 # Describe commands with verbose output
+
 kubectl describe nodes my-node
+
 kubectl describe pods my-pod
 
 # List Services Sorted by Name
@@ -229,10 +245,15 @@ kubectl get deployment nginx-deployment --subresource=status
 # Updating resources
 
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+
 kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision
+
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
+
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+
 kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 
@@ -247,11 +268,17 @@ kubectl expose rc nginx --port=80 --target-port=8000
 # Update a single-container pod's image version (tag) to v4
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
+
 kubectl label pods my-pod new-label=awesome                      # Add a Label
+
 kubectl label pods my-pod new-label-                             # Remove a label
+
 kubectl label pods my-pod new-label=new-value --overwrite        # Overwrite an existing value
+
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
+
 kubectl annotate pods my-pod icon-url-                           # Remove annotation
+
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 
 ===========================================###=====================####===========================####============================
@@ -282,21 +309,29 @@ kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -
 Edit any API resource in your preferred editor.
 
 kubectl edit svc/docker-registry                      # Edit the service named docker-registry
+
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative editor
 ===========================================###=====================####===========================####============================
 # Scaling resources
 kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
+
 kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
+
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
+
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
 
 ===========================================###=====================####===========================####============================
 
 # Deleting resources
 kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
+
 kubectl delete pod unwanted --now                                 # Delete a pod with no grace period
+
 kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
+
 kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
+
 kubectl -n my-ns delete pod,svc --all                             # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
@@ -306,27 +341,48 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 
 # Interacting with running Pods
 kubectl logs my-pod                                 # dump pod logs (stdout)
+
 kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
+
 kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
+
 kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
+
 kubectl logs -l name=myLabel -c my-container        # dump pod container logs, with label name=myLabel (stdout)
+
 kubectl logs my-pod -c my-container --previous      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
+
 kubectl logs -f my-pod                              # stream pod logs (stdout)
+
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
+
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
+
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
+
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
+
 kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
                                                     # Generate spec for running pod nginx and write it into a file called pod.yaml
 kubectl attach my-pod -i                            # Attach to Running Container
+
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
+
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
+
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
+
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
-kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session within existing pod and immediately attach to it
+
+kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session within existing pod and immediately 
+attach to it
+
 kubectl debug node/my-node -it --image=busybox:1.28 # Create an interactive debugging session on a node and immediately attach to it
+
 kubectl top pod                                     # Show metrics for all pods in the default namespace
+
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
+
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 
 ===========================================###=====================####===========================####============================
@@ -351,12 +407,15 @@ kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar 
 
 # Interacting with Deployments and Services
 kubectl logs deploy/my-deployment                         # dump Pod logs for a Deployment (single-container case)
+
 kubectl logs deploy/my-deployment -c my-container         # dump Pod logs for a Deployment (multi-container case)
 
 kubectl port-forward svc/my-service 5000                  # listen on local port 5000 and forward to port 5000 on Service backend
+
 kubectl port-forward svc/my-service 5000:my-service-port  # listen on local port 5000 and forward to Service target port with name <my-service-port>
 
 kubectl port-forward deploy/my-deployment 5000:6000       # listen on local port 5000 and forward to port 6000 on a Pod created by <my-deployment>
+
 kubectl exec deploy/my-deployment -- ls                   # run command in first Pod and first container in Deployment (single- or multi-container cases)
 
 ===========================================###=====================####===========================####============================
@@ -393,10 +452,15 @@ kubectl api-resources
 Other operations for exploring API resources:
 
 kubectl api-resources --namespaced=true      # All namespaced resources
+
 kubectl api-resources --namespaced=false     # All non-namespaced resources
+
 kubectl api-resources -o name                # All resources with simple output (only the resource name)
+
 kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
+
 kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
+
 kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
 
 ======================================####=============================######===================================
