@@ -10,6 +10,46 @@ processes and communicating with one another. The Master Node contains a collect
 called the control plane that helps enact and maintain the desired state of the Kubernetes cluster, while
 Worker Nodes are responsible for running the containers that form your applications and services.
 
+=============================Short Overview ==========================================================
+Overview
+Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+
+Cluster Architecture
+The architectural concepts behind Kubernetes.
+
+Containers
+Technology for packaging an application along with its runtime dependencies.
+
+Workloads
+Understand Pods, the smallest deployable compute object in Kubernetes, and the higher-level abstractions that help you to run them.
+
+Services, Load Balancing, and Networking
+Concepts and resources behind networking in Kubernetes.
+
+Storage
+Ways to provide both long-term and temporary storage to Pods in your cluster.
+
+Configuration
+Resources that Kubernetes provides for configuring Pods.
+
+Security
+Concepts for keeping your cloud-native workload secure.
+
+Policies
+Manage security and best-practices with policies.
+
+Scheduling, Preemption and Eviction
+Cluster Administration
+Lower-level detail relevant to creating or administering a Kubernetes cluster.
+
+Windows in Kubernetes
+Kubernetes supports nodes that run Microsoft Windows.
+
+Extending Kubernetes
+Different ways to change the behavior of your Kubernetes cluster.
+
+=============================Short Overview End ==========================================================
+
 
 
 ## A Kubernetes cluster is composed of two separate planes:
