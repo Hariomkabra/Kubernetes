@@ -468,8 +468,8 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 # Here is the full list of kubectl short names:
 
-|----------------------------------------------------------|
-| Short Name   |           	Long Name                      |
+
+| Short Name     |           	Long Name                  |
 | -------------- |-----------------------------------------|
 | csr            |             certificatesigningrequests  |
 | cs             |             componentstatuses           | 
@@ -493,4 +493,3 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 | quota	         |             resourcequotas              |
 | sa	         |             serviceaccounts             |
 | svc            |             services                    |
-| ---------------|-----------------------------------------|
