@@ -1,0 +1,33 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: webapp
+    type: front-end
+spec:
+  replicas: 3  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: webapp
+      type: front-end
+  template:
+    metadata:
+      labels:
+        app: webapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:   # This is the required scheduling
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: size
+                    operator: In
+                    values:
+                      - medium
+                      - small
