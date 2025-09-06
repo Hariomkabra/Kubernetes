@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: webapp
+    type: front-end
+spec:
+  replicas: 2  # You can change the number of replicas as needed
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+        type: front-end
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
+      nodeSelector:
+        clr: pink 

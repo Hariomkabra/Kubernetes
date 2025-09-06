@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    key: app
+    value: blue
+spec:
+  replicas: 3  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      key: app
+      value: blue
+  template:
+    metadata:
+      labels:
+        key: app
+        value: blue
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+      tolerations:
+        - key: "app"
+          operator: "Equal"
+          value: "blue"
+          effect: "NoSchedule"  
